@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="">
+
+     <!-- Bootstrap core CSS -->
+    <link href="{{ static('css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <style>
+        body{
+            background:#f3f1ec;
+            padding-top:70px;
+        }
+        #navbar{
+            background:#ffd52b;
+        }
+        .navbar-inverse{
+            background:#ffd52b;
+            border-color:#ffd52b;
+        }
+        .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover{
+            background-color:#ffe36f;
+            border-bottom-color:#7a4624;
+            color: #7a4624;
+        }
+        .navbar-inverse .navbar-brand{
+            color: #7a4624;
+        }
+        .navbar-inverse .navbar-nav>li>a{
+            color: #7a4624;
+        }
+        .joke{
+            margin-bottom:15px;padding: 15px;background: #fff
+        }
+    </style>
+</head>
+<body>
+    {% block header %}
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">没事偷着乐</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                  <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">最新</a></li>
+                    <li><a href="/about.html">关于偷乐</a></li>
+                  </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+    {% endblock %}
+    {% block body %}
+    {% endblock %}
+
+    <script src="{{ static('js/vendors/jquery-2.2.0.min.js') }}"></script>
+    <script src="{{ static('js/vendors/bootstrap.min.js') }}"></script>
+    <!-- endbuild -->
+    {% block custom_script %}
+    {% endblock %}
+</body>
+</html>

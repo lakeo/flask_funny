@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    最新笑话推荐
+{% endblock %}
+{% block body %}
+<div id="body" class="container">
+    <div id="main" class="row">
+        <div id="left" class="col-md-3"></div>
+        <div id="content" class="col-md-6">
+            {% for joke in jokes %}
+                <article class="joke">
+                    <h1>{{ joke.title }}</h1>
+                    <p style="font-size: 16px;">{{ joke.content }}</p>
+                    {{ joke.images | safe }}
+                </article>
+            {% endfor %}
+            <div class="index_more margin-t60">
+                <a onclick="loadMore();" id="moreinfo" pages="1">
+                    向下滑动加载更多内容
+                </a>
+            </div>
+        </div>
+        <div id="right" class="col-md-3"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block custom_script %}
+    <script type="application/javascript">
+        var index = {{ index }}
+        var arrayPages = [];
+        //加载更多
+        $(window).scroll(function(){
+            if($('#moreinfo').attr('pages')==5){
+                $('#moreinfo').text('点击加载更多内容');
+            }
+            if($('#moreinfo').attr('pages')>4){
+                return false;
+            }
+        　　 var scrollTop = $(this).scrollTop();
+        　　 var scrollHeight = $(document).height();
+        　　 var windowHeight = $(this).height();
+        　　 if(scrollTop + windowHeight == scrollHeight){
+                if($.inArray($('#moreinfo').attr('pages'),arrayPages)<0){
+                    loadMore();
+                    arrayPages.push($('#moreinfo').attr('pages'));
+                }
+        　　}
+    });
+        function loadMore(){
+            console.log('hi')
+
+            $.getJSON('/api/jokes/'+index,function(data){
+                attrs = data['data'];
+                item = ''
+                for(i in attrs) {
+                    item += '<article class="joke"> '
+                            +' <h1> '+attrs[i]['title']+' </h1> '
+                            +'<p style="font-size: 16px;">'
+                            +    attrs[i]['content']
+                            + '</p>'
+                            + attrs[i]['images']
+                            + '</article>'
+                }
+                if(attrs){
+                    index = attrs[attrs.length -1]['id']
+                }
+                $('#moreinfo').parent().before(item);
+                var num = parseInt($('#moreinfo').attr('pages'));
+                $('#moreinfo').attr('pages',eval(num+1));
+            });
+        }
+    </script>
+{% endblock %}
