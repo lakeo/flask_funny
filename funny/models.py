@@ -16,10 +16,10 @@ def getDB():
 
 class Joke(object):
     @classmethod
-    def getRandomJoke(cls):
+    def getRandomJoke(cls,seed):
         db = getDB()
-        sql = 'select * from joke limit 1'
-        joke = db.query_dict_row(sql)
+        sql = 'select * from joke where rand() < %s order by id desc limit 1'
+        joke = db.query_dict_row(sql, seed)
         return joke
 
     @classmethod
@@ -35,3 +35,9 @@ class Joke(object):
         sql = 'select * from joke where images = "" order by id desc limit %s'
         jokes = db.query_dict(sql,steps)()
         return jokes
+
+    @classmethod
+    def getTotal(cls):
+        db = getDB()
+        sql = 'select count(1) from joke'
+        return db.query_tuple_row(sql)[0]

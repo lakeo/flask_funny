@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 from models import Joke
+import random
 
 class JokeController(object):
-    @classmethod
-    def getRandomJoke(cls):
-        return Joke.getRandomJoke()
 
     @classmethod
-    def getJokes(cls,index=10000000,step=20):
+    def getJokes(cls,index=10000000,step=10):
         jokes = Joke.getJokesList(index,step)
         ret = []
         for joke in jokes:
@@ -15,9 +13,18 @@ class JokeController(object):
         return ret
 
     @classmethod
-    def getLatestJokes(cls, steps=20):
+    def getLatestJokes(cls, steps=10):
         jokes = Joke.getLatestJokesList(steps)
         ret = []
         for joke in jokes:
             ret.append(joke)
         return ret
+
+    @classmethod
+    def getRandomJoke(cls):
+        total = Joke.getTotal()
+        seed = 10. / total
+        joke = Joke.getRandomJoke(seed)
+        while not joke:
+            joke = Joke.getRandomJoke(seed)
+        return joke

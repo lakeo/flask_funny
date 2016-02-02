@@ -15,8 +15,8 @@
                     {{ joke.images | safe }}
                 </article>
             {% endfor %}
-            <div class="index_more margin-t60">
-                <a onclick="loadMore();" id="moreinfo" pages="1">
+            <div class="index_more margin-t60 center">
+                <a class="center-block text-center" onclick="loadMore();" id="moreinfo" pages="1">
                     向下滑动加载更多内容
                 </a>
             </div>
@@ -48,10 +48,8 @@
                     arrayPages.push($('#moreinfo').attr('pages'));
                 }
         　　}
-    });
+        });
         function loadMore(){
-            console.log('hi')
-
             $.getJSON('/api/jokes/'+index,function(data){
                 attrs = data['data'];
                 item = ''
@@ -64,8 +62,12 @@
                             + attrs[i]['images']
                             + '</article>'
                 }
-                if(attrs){
+                if(attrs.length){
                     index = attrs[attrs.length -1]['id']
+                }
+                if(!attrs.length) {
+                    $('#moreinfo').text('没有更多内容了 :>');
+                    return;
                 }
                 $('#moreinfo').parent().before(item);
                 var num = parseInt($('#moreinfo').attr('pages'));
