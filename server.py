@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
 from funny import funny
+import logging
+import logging.config
 
-funny.run(host='0.0.0.0')
+CONF_LOG = "log_config"
+logging.config.fileConfig(CONF_LOG);
+
+funny.run(host='0.0.0.0',port=8082)
