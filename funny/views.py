@@ -32,6 +32,12 @@ def goRandom():
 def about():
     return render_template('about.html')
 
+@funny.route('/login.html', methods=['GET','POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+
+
 @funny.route('/api/jokes/<index>')
 def getJokes(index):
     jokes = JokeController.getJokes(index)

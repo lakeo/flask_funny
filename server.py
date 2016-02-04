@@ -7,4 +7,4 @@ import logging.config
 CONF_LOG = "log_config"
 logging.config.fileConfig(CONF_LOG);
 
-funny.run(host='0.0.0.0',port=8082)
+funny.run(debug=True,host='0.0.0.0',port=8082)
