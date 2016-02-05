@@ -9,6 +9,10 @@ import random
 
 from controllers import JokeController
 
+
+#user view
+import view.user
+
 @funny.route('/')
 def index():
     random = request.args.get('r','')
@@ -31,11 +35,6 @@ def goRandom():
 @funny.route('/about.html')
 def about():
     return render_template('about.html')
-
-@funny.route('/login.html', methods=['GET','POST'])
-def login():
-    if request.method == 'GET':
-        return render_template('login.html')
 
 
 @funny.route('/api/jokes/<index>')
