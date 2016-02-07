@@ -34,9 +34,7 @@ import hashlib
 from struct import Struct
 from operator import xor
 from itertools import izip, starmap
-import random
-
-import time
+import os
 
 _pack_int = Struct('>I').pack
 
@@ -71,17 +69,19 @@ def pbkdf2_bin(data, salt, iterations=1000, keylen=24, hashfunc=None):
 ITERATION = 1000
 KEYLEN = 24
 def createPasswordHash(password):
-    salt = str(int(random.random() * 1000000))
+    password = password.encode('utf8')
+    salt = os.urandom(8).encode('hex')
     hashvalue = pbkdf2_hex(password,salt,ITERATION,KEYLEN)
     return 'PBKDF2$%s:%s$%s' % (salt,1000,hashvalue)
 
 def validatePassword(password, correctHash):
-    correctHash = createPasswordHash(password)
-    head, tail = correctHash.split(':')
-    algorithm,salt = head.split('$')
-    iterations, hashvalue = tail.split('$')
-    target = pbkdf2_hex(password,salt,int(iterations),KEYLEN)
-    if target == hashvalue:
+    password_t = password.encode('utf8')
+    head = correctHash[:correctHash.rindex(':')]
+    tail = correctHash[correctHash.rindex(':')+1:]
+    salt = head[head.index('$')+1:]
+    iterations, hashValue = tail.split('$')
+    target = pbkdf2_hex(password_t,salt,int(iterations),KEYLEN)
+    if target == hashValue:
         return True
     else:
         return False
@@ -105,7 +105,8 @@ def test():
     check('password', 'salt', 1, 20,
           '0c60c80f961f0e71f3a9b524af6012062fe037a6')
 
-    print validatePassword('password','cdedb5281bb2f801565a1122b2563515')
+    print len(createPasswordHash('password'))
+    print validatePassword('password',createPasswordHash('password'))
     raise SystemExit(bool(failed))
 
 

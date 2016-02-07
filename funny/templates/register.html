@@ -1,14 +1,23 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    登录
+    注册
 {% endblock %}
 {% block body %}
  <div class="container">
         <div class="row">
-            <!-- form: -->
+            <div class="col-lg-8 col-lg-offset-4" style="color: red;">
+                {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                    {% for message in messages %}
+                      {{ message }}
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+            </div>
             <section>
                 <div class="col-lg-8 col-lg-offset-2">
+                    <!-- form: -->
                     <form id="defaultForm" method="post" class="form-horizontal">
 
                         <div class="form-group">
@@ -21,7 +30,7 @@
                         <div class="form-group">
                             <label class="col-lg-3 control-label">密码</label>
                             <div class="col-lg-5">
-                                <input type="password" class="form-control" name="password" />
+                                <input type="text" class="form-control" name="password" placeholder="密码长度在6到18位之间"/>
                             </div>
                         </div>
 
@@ -33,9 +42,8 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-lg-9 col-lg-offset-4">
-                                <button type="submit" class="btn btn-primary" name="signup" value="Sign up">登录</button>
-                                <a href="#" class="col-lg-offset-1">忘记密码</a>
+                            <div class="col-lg-9 col-lg-offset-5">
+                                <button type="submit" class="btn btn-primary" name="signup" value="Sign up">注册</button>
                             </div>
                         </div>
                     </form>
@@ -79,6 +87,15 @@ $(document).ready(function() {
                 validators: {
                     notEmpty: {
                         message: '密码不能为空.'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 18,
+                        message: '密码长度要在6到18位之间'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_]+$/,
+                        message: '密码只能是字母或者数字'
                     }
                 }
             },

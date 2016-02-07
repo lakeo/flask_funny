@@ -5,15 +5,14 @@ from funny import funny
 from flask import jsonify
 from flask import request
 from flask import redirect,url_for
-import random
 
 from controllers import JokeController
 
 
 #user view
 import view.user
-
 @funny.route('/')
+@funny.route('/index.html')
 def index():
     random = request.args.get('r','')
     if random:

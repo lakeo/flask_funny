@@ -27,3 +27,4 @@ class JokeController(object):
         while not joke:
             joke = Joke.getRandomJoke(seed)
         return joke
+

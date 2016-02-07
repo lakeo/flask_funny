@@ -2,6 +2,8 @@
 
 import SimpleDB
 import config
+import time
+import logging
 
 def getDB():
     return SimpleDB.MySQLdb(

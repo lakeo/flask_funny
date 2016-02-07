@@ -60,9 +60,14 @@
                     <li><a href="/random.html">随便逛逛</a></li>
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/about.html">关于偷乐</a></li>
-                    <li><a href="/user/login.html">登录</a></li>
-                    <li><a href="/user/register.html">注册</a></li>
+                      <li><a href="/about.html">关于偷乐</a></li>
+                      {% if g.user.is_authenticated() %}
+                        <li><a href="#">欢迎 {{ g.user.getUserName() }}</a></li>
+                        <li><a href="/user/logout.html">登出</a></li>
+                      {% else %}
+                        <li><a href="/user/login.html">登录</a></li>
+                        <li><a href="/user/register.html">注册</a></li>
+                      {% endif %}
                   </ul>
                 </div><!--/.nav-collapse -->
             </div>

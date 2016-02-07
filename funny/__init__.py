@@ -14,4 +14,7 @@ funny.jinja_env.globals['static'] = (
     lambda filename: url_for('static', filename = filename)
 )
 
+import environ
+import config
+
 from funny import views
