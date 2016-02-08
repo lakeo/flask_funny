@@ -28,8 +28,13 @@ def index():
 @funny.route('/random.html')
 def goRandom():
     joke = JokeController.getRandomJoke()
-    seed = joke['id']
-    return redirect(url_for('index',r=seed))
+    random = joke['id']
+    jokes = JokeController.getJokes(random)
+    jokes = jokes if jokes else []
+    index = 1000000000
+    if jokes:
+        index = jokes[-1]['id']
+    return render_template('random.html',jokes=jokes,index=index)
 
 @funny.route('/article/joke')
 def getJoke():

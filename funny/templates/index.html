@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    最新笑话推荐
+    最新
 {% endblock %}
 
 {% block custom_style %}
@@ -42,8 +42,9 @@
                     {{ joke.images | safe }}
                     <ul class="operations btn-operations .pull-right">
                         <li class="first">
-                            <a class="support first" href="#">顶<em>0</em></a>
+                            <a class="btn support first" href="#">顶<em>{{ joke['zan_number'] }}</em></a>
                         </li>
+                        <li><a class="btn support" href="#">踩<em>{{ joke['cai_number'] }}</em></a></li>
                         <li><a class="reply" style="display:none" href="#">回复</a></li>
                         <li style="">
                             <a class="share last" href="/article/joke?id={{ joke.id }}">...</a>
