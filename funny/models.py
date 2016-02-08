@@ -43,3 +43,10 @@ class Joke(object):
         db = getDB()
         sql = 'select count(1) from joke'
         return db.query_tuple_row(sql)[0]
+
+    @classmethod
+    def getJoke(cls,id):
+        db = getDB()
+        sql = 'select * from joke where id = %s'
+        joke = db.query_dict_row(sql,id)
+        return joke

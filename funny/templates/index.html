@@ -3,16 +3,52 @@
 {% block title %}
     最新笑话推荐
 {% endblock %}
+
+{% block custom_style %}
+    <style>
+    .joke{
+            margin-bottom:15px;background: #fff;
+            padding:18px 20px;
+        }
+    ul.operations{
+        list-style:none;
+        margin:0;
+        padding:0;
+        float:right
+    }
+    ul.operations li{display:inline-block;
+        float:left;
+        line-height:12px}
+    ul.operations li a{display:inline-block;*zoom:1;*display:inline;padding:0 12px;color:#999;line-height:35px;height:35px;vertical-align:top}
+    ul.operations li a.support em{position:relative;top:-1px;font-size:18px;color:#ba2636;font-style:normal;margin-left:2px}
+    ul.operations li a.visited{color:#999;cursor:text}
+    ul.operations li a.visited:hover{text-decoration:none}
+    ul.operations li.first{  position:relative;*zoom:1  }
+    ul.btn-operations li a{border-top:1px solid #e2e2e2;border-bottom:1px solid #e2e2e2;border-left:1px solid #eee}
+    ul.btn-operations li a.first{border-left:1px solid #e2e2e2;-webkit-border-top-left-radius:3px;-moz-border-top-left-radius:3px;border-top-left-radius:3px;-webkit-border-bottom-left-radius:3px;-moz-border-bottom-left-radius:3px;border-bottom-left-radius:3px}
+    ul.btn-operations li a.last{border-right:1px solid #e2e2e2;-webkit-border-top-right-radius:3px;-moz-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-border-bottom-right-radius:3px;-moz-border-bottom-right-radius:3px;border-bottom-right-radius:3px}
+
+    </style>
+{% endblock %}
 {% block body %}
 <div id="body" class="container">
     <div id="main" class="row">
         <div id="left" class="col-md-3"></div>
         <div id="content" class="col-md-6">
             {% for joke in jokes %}
-                <article class="joke">
-                    <h1>{{ joke.title }}</h1>
+                <article class="clearfix joke">
+                    <h1 style="display: none">{{ joke.title }}</h1>
                     <p style="font-size: 16px;">{{ joke.content | safe}}</p>
                     {{ joke.images | safe }}
+                    <ul class="operations btn-operations .pull-right">
+                        <li class="first">
+                            <a class="support first" href="#">顶<em>0</em></a>
+                        </li>
+                        <li><a class="reply" style="display:none" href="#">回复</a></li>
+                        <li style="">
+                            <a class="share last" href="/article/joke?id={{ joke.id }}">...</a>
+                        </li>
+                    </ul>
                 </article>
             {% endfor %}
             <div class="index_more margin-t60 center">
@@ -29,6 +65,7 @@
 
 {% block custom_script %}
     <script type="application/javascript">
+        /*下拉下载代码*/
         var index = {{ index }}
         var arrayPages = [];
         //加载更多

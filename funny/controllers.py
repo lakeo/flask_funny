@@ -3,7 +3,6 @@ from models import Joke
 import random
 
 class JokeController(object):
-
     @classmethod
     def getJokes(cls,index=10000000,step=10):
         jokes = Joke.getJokesList(index,step)
@@ -28,3 +27,6 @@ class JokeController(object):
             joke = Joke.getRandomJoke(seed)
         return joke
 
+    @classmethod
+    def getJoke(cls,id):
+        return Joke.getJoke(id)

@@ -31,6 +31,12 @@ def goRandom():
     seed = joke['id']
     return redirect(url_for('index',r=seed))
 
+@funny.route('/article/joke')
+def getJoke():
+    id = request.args.get('id','')
+    joke = JokeController.getJoke(id)
+    return render_template('article.html',joke=joke)
+
 @funny.route('/about.html')
 def about():
     return render_template('about.html')
