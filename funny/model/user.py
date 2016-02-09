@@ -1,22 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from flask.ext.login import UserMixin
-import SimpleDB
-import funny.config
+
 import time
 import logging
 
 from funny.environ import login_manager
-
-def getDB():
-    return SimpleDB.MySQLdb(
-                host='localhost',
-                port = 3306,
-                user='joke',
-                passwd='joke',
-                db ='joke',
-                use_unicode=True,
-                charset='utf8')
+from funny.tools.mysql import getDB
 
 class User(UserMixin):
     '''
@@ -35,7 +25,6 @@ class User(UserMixin):
     def __init__(self,data):
         self._user  = data
         self.id = int(data['userid'])
-        logging.info(self.id)
 
     def getUserName(self):
         if 'name' in self._user:

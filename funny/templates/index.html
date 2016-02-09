@@ -27,7 +27,9 @@
     ul.btn-operations li a{border-top:1px solid #e2e2e2;border-bottom:1px solid #e2e2e2;border-left:1px solid #eee}
     ul.btn-operations li a.first{border-left:1px solid #e2e2e2;-webkit-border-top-left-radius:3px;-moz-border-top-left-radius:3px;border-top-left-radius:3px;-webkit-border-bottom-left-radius:3px;-moz-border-bottom-left-radius:3px;border-bottom-left-radius:3px}
     ul.btn-operations li a.last{border-right:1px solid #e2e2e2;-webkit-border-top-right-radius:3px;-moz-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-border-bottom-right-radius:3px;-moz-border-bottom-right-radius:3px;border-bottom-right-radius:3px}
-
+    ul.operations li a.selected {
+            border-color: #ba2636
+        }
     </style>
 {% endblock %}
 {% block body %}
@@ -42,9 +44,9 @@
                     {{ joke.images | safe }}
                     <ul class="operations btn-operations .pull-right">
                         <li class="first">
-                            <a class="btn support first" href="#">顶<em>{{ joke['zan_number'] }}</em></a>
+                            <a class="btn support first like {{  'selected' if joke['current_user_like']}}"
+                               jokeid={{ joke.id }}>顶<em class="value">{{ joke['like_number'] }}</em></a>
                         </li>
-                        <li><a class="btn support" href="#">踩<em>{{ joke['cai_number'] }}</em></a></li>
                         <li><a class="reply" style="display:none" href="#">回复</a></li>
                         <li style="">
                             <a class="share last" href="/article/joke?id={{ joke.id }}">...</a>
@@ -92,12 +94,21 @@
                 attrs = data['data'];
                 item = ''
                 for(i in attrs) {
-                    item += '<article class="joke"> '
+                    item += '<article class="clearfix joke"> '
                             +' <h1> '+attrs[i]['title']+' </h1> '
                             +'<p style="font-size: 16px;">'
                             +    attrs[i]['content']
                             + '</p>'
                             + attrs[i]['images']
+                            +'<ul class="operations btn-operations .pull-right">' +
+                                '<li class="first"> ' +
+                                    '<a class="btn support first like '+(attrs[i].current_user_like ? 'selected' : '')+'"' +
+                                        'jokeid="'+attrs[i].id+'" >顶<em class="value">'+attrs[i].like_number+'</em></a> ' +
+                                '</li> ' +
+                                '<li><a class="reply" style="display:none" href="#">回复</a></li> ' +
+                                '<li style=""> ' +
+                                    '<a class="share last" href="/article/joke?id='+attrs[i].id+'">...</a> </li> ' +
+                                '</ul>'
                             + '</article>'
                 }
                 if(attrs.length){
@@ -108,9 +119,12 @@
                     return;
                 }
                 $('#moreinfo').parent().before(item);
+                initLikeOnclick();
                 var num = parseInt($('#moreinfo').attr('pages'));
                 $('#moreinfo').attr('pages',eval(num+1));
             });
         }
+    </script>
+    <script type="application/javascript" src="{{ static('js/likeTools.js') }}">
     </script>
 {% endblock %}

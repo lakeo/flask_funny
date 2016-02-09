@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from models import Joke
-import random
+from funny.model.joke import Joke
 
 class JokeController(object):
     @classmethod
@@ -30,3 +29,12 @@ class JokeController(object):
     @classmethod
     def getJoke(cls,id):
         return Joke.getJoke(id)
+
+    @classmethod
+    def likeJoke(cls,jokeid,userid,type):
+        value = 1
+        if type == 'unlike':
+            value = 0
+        jokeid = int(jokeid)
+        userid = int(userid)
+
