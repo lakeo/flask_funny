@@ -30,7 +30,7 @@ class JokeController(object):
 
     @classmethod
     def getRandomJoke(cls):
-        seed = 0.00002
+        seed = 0.002
         joke = Joke.getRandomJoke(seed)
         while not joke:
             joke = Joke.getRandomJoke(seed)
