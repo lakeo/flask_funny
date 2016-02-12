@@ -101,7 +101,9 @@
                     <h1 style="display: none">{{ joke.title }}</h1>
                     <p style="font-size: 16px;">{{ joke.content | safe }}</p>
                     {% for image in joke.images.split(',') %}
-                        <img src="{{ image | safe }}" width="430px"/>
+                        {% if image %}
+                            <img src="{{ image | safe }}" width="430px"/>
+                        {% endif %}
                     {% endfor %}
                     <ul class="operations btn-operations pull-right">
                         <li class="first">
