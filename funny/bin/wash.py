@@ -16,11 +16,29 @@ def getDB():
 
 db = getDB()
 
-sql = 'select id,images from joke where images != ""  limit 10'
+sql = 'select id,images from joke where images != "" '
 
 rows = db.query_dict(sql)()
 
-for r in rows:
-    print r
+from lxml import etree
 
+images = []
+for r in rows:
+    images.append(r)
+
+update = 'update joke set images = %s where id = %s'
+
+for r in images:
+    if r['images'].index('http') == 0:
+        continue
+    attrs = etree.HTML(r['images'])
+    src = "".join([i.get('src') if i.get('src') else '' for i in attrs.xpath('//img')])
+    if not src:
+        src = "".join([i.get('tsrc') if i.get('tsrc') else '' for i in attrs.xpath('//img')])
+    if not src:
+        src = "".join([i.get('_src') if i.get('_src') else '' for i in attrs.xpath('//img')])
+    if not src:
+        print 'error\n %s' % r['id'],attrs.xpath('//img'),r['images']
+        continue
+    db.update(update,src,r['id'])
 
