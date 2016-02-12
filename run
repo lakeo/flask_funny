@@ -1,2 +1,0 @@
-#!/bin/bash
-python /var/www/flask_funny/server.py
