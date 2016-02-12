@@ -31,7 +31,7 @@ function loadMore() {
                 + '</p>';
             images = attrs[i]['images'].split(',');
             for (image in images) {
-                if(!image)
+                if(images[image])
                     item += '<img src="'+images[image]+'" width="430px">'
             }
             item += '<ul class="operations btn-operations .pull-right">' +
@@ -41,7 +41,7 @@ function loadMore() {
                 '</li> ' +
                 '<li><a class="reply" style="display:none" href="#">回复</a></li> ' +
                 '<li style=""> ' +
-                '<a class="share last" href="/article/joke?id=' + attrs[i].id + '">...</a> </li> ' +
+                '<a class="share last" href="/article/joke/' + attrs[i].id + '">...</a> </li> ' +
                 '</ul>'
                 + '</article>'
         }
