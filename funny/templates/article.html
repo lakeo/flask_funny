@@ -100,7 +100,9 @@
                 <article class="clearfix joke">
                     <h1 style="display: none">{{ joke.title }}</h1>
                     <p style="font-size: 16px;">{{ joke.content | safe }}</p>
-                    <img src="{{ joke.images | safe }}" width="430px"/>
+                    {% for image in joke.images.split(',') %}
+                        <img src="{{ image | safe }}" width="430px"/>
+                    {% endfor %}
                     <ul class="operations btn-operations pull-right">
                         <li class="first">
                             <a class="btn support first like {{  'selected' if joke['current_user_like']}}"

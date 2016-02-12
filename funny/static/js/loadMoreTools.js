@@ -28,9 +28,12 @@ function loadMore() {
                 + ' <h1> ' + attrs[i]['title'] + ' </h1> '
                 + '<p style="font-size: 16px;">'
                 + attrs[i]['content']
-                + '</p>'
-                + '<img src="'+attrs[i]['images']+'" width="430px">'
-                + '<ul class="operations btn-operations .pull-right">' +
+                + '</p>';
+            images = attrs[i]['images'].split(',');
+            for (image in images) {
+                item += '<img src="'+images[image]+'" width="430px">'
+            }
+            item += '<ul class="operations btn-operations .pull-right">' +
                 '<li class="first"> ' +
                 '<a class="btn support first like ' + (attrs[i].current_user_like ? 'selected' : '') + '"' +
                 'jokeid="' + attrs[i].id + '" >顶<em class="value">' + attrs[i].like_number + '</em></a> ' +
