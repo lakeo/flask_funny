@@ -33,9 +33,8 @@ def goRandom():
         index = jokes[-1]['id']
     return render_template('random.html',jokes=jokes,index=index)
 
-@funny.route('/article/joke')
-def getJoke():
-    id = request.args.get('id','')
+@funny.route('/article/joke/<id>')
+def getJoke(id):
     joke = JokeController.getJoke(id,current_user)
     return render_template('article.html',joke=joke)
 
