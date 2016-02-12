@@ -16,6 +16,7 @@
             list-style: none;
             margin: 0;
             padding: 0;
+            padding-top:5px;
             float: right
         }
 
@@ -99,17 +100,16 @@
                 <article class="clearfix joke">
                     <h1 style="display: none">{{ joke.title }}</h1>
                     <p style="font-size: 16px;">{{ joke.content | safe }}</p>
-                    {{ joke.images | safe }}
-                    <ul class="operations btn-operations">
+                    <img src="{{ joke.images | safe }}" width="430px"/>
+                    <ul class="operations btn-operations pull-right">
                         <li class="first">
-                            <a class="btn support first last like {{  'selected' if joke['current_user_like']}}"
+                            <a class="btn support first like {{  'selected' if joke['current_user_like']}}"
                                jokeid={{ joke.id }}>顶<em class="value">{{ joke['like_number'] }}</em></a>
                         </li>
-                        <li><a class="reply" style="display:none" href="">回复</a></li>
-                        <li>
-                            <a class="share last" style="display:none" href="#">...</a>
+                        <li><a class="reply" style="display:none" href="#">回复</a></li>
+                        <li style="">
+                            <a class="share last" href="/article/joke?id={{ joke.id }}">...</a>
                         </li>
-
                     </ul>
                 </article>
             </div>

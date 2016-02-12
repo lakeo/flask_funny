@@ -16,14 +16,14 @@ class Joke(object):
     @classmethod
     def getJokesList(cls, begin, limit):
         db = getDB()
-        sql = 'select * from joke WHERE images ="" and id < %s order by id desc limit %s'
+        sql = 'select * from joke WHERE id < %s order by id desc limit %s'
         jokes = db.query_dict(sql, begin, limit)()
         return jokes
 
     @classmethod
     def getLatestJokesList(cls, steps):
         db = getDB()
-        sql = 'select * from joke where images = "" order by id desc limit %s'
+        sql = 'select * from joke order by id desc limit %s'
         jokes = db.query_dict(sql, steps)()
         return jokes
 
