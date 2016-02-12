@@ -31,7 +31,8 @@ function loadMore() {
                 + '</p>';
             images = attrs[i]['images'].split(',');
             for (image in images) {
-                item += '<img src="'+images[image]+'" width="430px">'
+                if(!image)
+                    item += '<img src="'+images[image]+'" width="430px">'
             }
             item += '<ul class="operations btn-operations .pull-right">' +
                 '<li class="first"> ' +
