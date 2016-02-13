@@ -32,7 +32,7 @@ function loadMore() {
             images = attrs[i]['images'].split(',');
             for (image in images) {
                 if(images[image])
-                    item += '<img src="'+images[image]+'" width="430px" class="img-responsive center-block">'
+                    item += '<img src="'+images[image]+'" width="430px" class="img-responsive center-block" onclick="javascript:showBigImage(this);">'
             }
             item += '<ul class="operations btn-operations .pull-right">' +
                 '<li class="first"> ' +
