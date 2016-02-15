@@ -31,7 +31,7 @@ function showBigImage(_this) {
         type: 1,
         title: false,
         closeBtn: 0,
-        area: '430px',
+        area: '450px',
         skin: 'layui-layer-nobg', //没有背景色
         shadeClose: true,
         content: $(img)
